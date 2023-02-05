@@ -1,0 +1,90 @@
+********************************************************************************************************************************************************************
+                                                                   Array Subset of another array
+********************************************************************************************************************************************************************
+
+GFG Link:- https://practice.geeksforgeeks.org/problems/array-subset-of-another-array2317/1
+
+
+Given two arrays: a1[0..n-1] of size n and a2[0..m-1] of size m. Task is to check whether a2[] is a subset of a1[] or not. Both the arrays can be sorted or unsorted. 
+ 
+
+Example 1:
+
+Input:
+a1[] = {11, 1, 13, 21, 3, 7}
+a2[] = {11, 3, 7, 1}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 2:
+
+Input:
+a1[] = {1, 2, 3, 4, 5, 6}
+a2[] = {1, 2, 4}
+Output:
+Yes
+Explanation:
+a2[] is a subset of a1[]
+
+Example 3:
+
+Input:
+a1[] = {10, 5, 2, 23, 19}
+a2[] = {19, 5, 3}
+Output:
+No
+Explanation:
+a2[] is not a subset of a1[]
+ 
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function isSubset() which takes the array a1[], a2[], its size n and m as inputs and return "Yes" if arr2 is subset of arr1 else return "No" if arr2 is not subset of arr1.
+
+ 
+
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(n)
+
+Constraints:
+1 <= n,m <= 105
+1 <= a1[i], a2[j] <= 106
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+//User function Template for Java
+
+
+class Compute {
+    public String isSubset( long a1[], long a2[], long n, long m) {
+        //STEPS FOR SOLUTION:-
+        //1)Edge case:- If the length of a2 is greater than a1 then a2 can never be subset of a1
+        //2)Create a hashmap and store all elements of a1
+        //3)Traverse array a2 and for each element check whether it exists in map or not
+        //4)If any one of the element is not present return "No" as then it cannot be subset- else return "Yes"
+        
+        if(a2.length>a1.length)
+            return "No";
+            
+        HashMap<Long,Integer> map= new HashMap<>();
+        for(int i=0; i<a1.length; i++)
+            map.put(a1[i],map.getOrDefault(a1[i],0)+1);
+            
+        for(int i=0; i<a2.length; i++)
+        {
+            if(!map.containsKey(a2[i]))
+                return "No";
+            else
+            {
+                map.put(a2[i],map.get(a2[i])-1);
+                if(map.get(a2[i])==0)
+                    map.remove(a2[i]);
+            }
+        }
+        return "Yes";
+    }
+}
