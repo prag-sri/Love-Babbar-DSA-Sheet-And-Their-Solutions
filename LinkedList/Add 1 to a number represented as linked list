@@ -1,0 +1,106 @@
+********************************************************************************************************************************************************************
+                                                                   Add 1 to a number represented as linked list
+********************************************************************************************************************************************************************
+
+GFG Link:- https://practice.geeksforgeeks.org/problems/add-1-to-a-number-represented-as-linked-list/1
+
+
+A number N is represented in Linked List such that each digit corresponds to a node in linked list. You need to add 1 to it.
+
+Example 1:
+
+Input:
+LinkedList: 4->5->6
+Output: 457 
+Example 2:
+
+Input:
+LinkedList: 1->2->3
+Output: 124 
+Your Task:
+Your task is to complete the function addOne() which takes the head of the linked list as the only argument and returns the head of the modified linked list. The driver code prints the number.
+Note: The head represents the left-most digit of the number.
+
+Expected Time Complexity: O(N).
+Expected Auxiliary Space: O(1).
+
+Constraints:
+1 <= N <= 101000
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+/*
+class Node{
+    int data;
+    Node next;
+    
+    Node(int x){
+        data = x;
+        next = null;
+    }
+} 
+*/
+
+class Solution
+{
+    public static Node addOne(Node head) 
+    { 
+        //STEPS FOR SOLUTION:-
+        //1)Reverse the linkedList
+        //2)Check if the head of list is whether 9 or any other no.
+        //3)If it is not 9 then add 1 to the head's data
+        //4)But if it is 9 then using while loop make the node's value 0 until you either you dont reach null or node whose value is not 9
+        //5)If the end node's value is not null and not 9 then simply add 1 to it
+        //6)But if node has become null then add a new node having value 1
+        //7)Again reverse the list and return this modified list
+        
+        if(head==null)      //Edge case
+            return head;
+            
+        head= reverse(head);
+        
+        if(head.data!=9)
+            head.data+= 1;
+            
+        else
+        {
+           Node tmp= head;
+           Node prev= null;
+           while(tmp!=null && tmp.data==9)
+           {
+               prev= tmp;
+               tmp.data=0;
+               tmp= tmp.next;
+           }
+           if(tmp!=null)
+                prev.next.data+= 1;
+           else
+           {
+               Node newNode= new Node(1);
+               prev.next= newNode;
+           }
+        }
+        
+        head= reverse(head);
+        
+        return head;
+        
+    }
+    public static Node reverse(Node head)
+    {
+        Node prev= null;
+        Node curr= head;
+        while(curr!=null)
+        {
+            Node nxt= curr.next;
+            curr.next= prev;
+            prev= curr;
+            curr= nxt;
+        }
+        return prev;
+    }
+}
