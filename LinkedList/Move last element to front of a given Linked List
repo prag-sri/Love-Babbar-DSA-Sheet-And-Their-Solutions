@@ -1,0 +1,81 @@
+********************************************************************************************************************************************************************
+                                                          Move last element to front of a given Linked List
+********************************************************************************************************************************************************************
+
+GFG Link:- https://www.geeksforgeeks.org/move-last-element-to-front-of-a-given-linked-list/
+
+
+Write a function that moves the last node to the front in a given Singly Linked List.
+
+Examples:
+
+Input: 1->2->3->4->5
+Output: 5->1->2->3->4
+
+Input: 3->8->1->5->7->12
+Output: 12->3->8->1->5->7  
+
+
+
+********************************************************************************************************************************************************************
+                                                                               CODE
+********************************************************************************************************************************************************************
+
+import java.util.Scanner;
+public class Main
+{
+    static class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data= data;
+            this.next= null;
+        }
+    }
+    static Node head= null;
+	static Node tail= null;
+    public static void addNode(int data){
+        Node newNode= new Node(data);
+        if(head==null)
+        {
+            head= newNode;
+            tail= newNode;
+        }
+        else
+        {
+            tail.next= newNode;
+            tail= newNode;
+        }
+    }
+    public static void printLL(){
+        Node tmp= head;
+        while(tmp!=null)
+        {
+            System.out.print(tmp.data+"->");
+            tmp= tmp.next;
+        }
+        System.out.println("null");
+    }
+    public static void moveLastToFront(){
+        Node tmp= head;
+        while(tmp.next!=tail)
+            tmp= tmp.next;
+        tmp.next= null;
+        tail.next= head;
+        head= tail;
+        tail= tmp;
+    }
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		int n= sc.nextInt();
+		int arr[]= new int[n];
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]= sc.nextInt();
+		    addNode(arr[i]);
+		}
+		printLL();
+		moveLastToFront();
+		printLL();
+	}
+}
